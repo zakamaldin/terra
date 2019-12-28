@@ -1,0 +1,24 @@
+.logo {
+  width: 64px;
+  height: 64px;
+  background-image: url("./terra_logo.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  resize: both;
+  float: left;
+}
+
+.buttons{
+  margin-right: 8px;
+}
+
+.event-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+.event-buttons div:first-child {
+  margin-right: 8px;
+  margin-bottom: 20px;
+}
+.table-checkboxes .ant-checkbox:hover::after, .ant-checkbox-wrapper:hover .ant-checkbox::after {
+}
