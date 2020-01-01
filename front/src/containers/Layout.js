@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Layout, Menu} from 'antd';
 import { Link } from 'react-router-dom';
-import NewEvent from '../components/NewEvent'
-import NewMember from '../components/NewMember'
 
 const { Header, Content, Footer } = Layout;
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Button } from 'antd';
+import { Modal, Button, Icon } from 'antd';
 import NewMemberForm from './NewMemberForm'
 
 class NewMember extends Component {
@@ -24,6 +24,7 @@ class NewMember extends Component {
 
       console.log('Received values of form: ', values);
       form.resetFields();
+      this.props.addMember(values);
       this.setState({ visible: false });
     });
   };
@@ -34,6 +35,7 @@ class NewMember extends Component {
     return (
       <div>
         <Button type="primary" onClick={this.showModal}>
+          <Icon type="user-add" />
           Добавить участника
         </Button>
         <Modal

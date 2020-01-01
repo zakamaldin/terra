@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Modal, Button } from 'antd';
+import { Modal, Button, Icon } from 'antd';
 const { confirm } = Modal;
 
 class NewEvent extends Component {
@@ -8,7 +8,7 @@ class NewEvent extends Component {
 
   members(count){
     if (count){
-        let str = count.toString()
+        let str = count.toString();
         let lastSymbol = str[str.length-1];
         let addWord = 'участников';
         switch(lastSymbol){
@@ -30,12 +30,13 @@ class NewEvent extends Component {
     confirm({
         title: 'Вы действительно хотите завершить текущую игротеку?',
         content: `В текущей игротеке ${this.members(this.props.count)}`,
+        okText:'Да',
+        cancelText:'Нет',
         onOk() {
           return new Promise((resolve, reject) => {
             setTimeout(resolve, 1000);
           }).catch(() => {this.error()});
         },
-        onCancel() {},
     });
   };
 
@@ -49,7 +50,8 @@ class NewEvent extends Component {
   render() {
     return (
       <div>
-        <Button type="danger" onClick={this.showModal}>
+        <Button type="danger" onClick={this.showModal} disabled={this.props.count === 0}>
+            <Icon type="team" />
           Начать новую игротеку
         </Button>
       </div>

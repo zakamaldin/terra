@@ -1,6 +1,7 @@
-import {Table, Button, Modal, Checkbox, Icon} from 'antd';
+import {Table, Button, Modal, Checkbox, Icon, Popconfirm, Radio} from 'antd';
 import Moment from 'react-moment';
 import React, {Component} from "react";
+import ExtraPayConfirm from "./ExtraPayConfirm";
 
 const { confirm } = Modal;
 const { Column } = Table;
@@ -8,12 +9,7 @@ const { Column } = Table;
 
 class MembersList extends Component {
 
-  addExtraPay (id){
-      console.log('addExtraPay',id)
-  }
-  delete(id){
-      console.log('delete', id)
-  }
+
 
   paymenTypeMapper = {
     cash: 'Наличные',
@@ -28,13 +24,13 @@ class MembersList extends Component {
         okType: 'danger',
         cancelText: 'Нет',
         icon: <Icon type="question-circle-o" style={{ color: 'red' }} />,
-        onOk: () => this.delete(id),
+        onOk: () => this.props.deleteMember(id),
       });
     }
 
   render() {
     return(
-      <Table dataSource={this.props.data} pagination={false}  rowKey={record => record.id}>
+      <Table dataSource={this.props.members} pagination={false}  rowKey={record => record.id}>
         <Column title="ID" dataIndex="id" id="id" width={80}/>
         <Column title="Имя" dataIndex="name" id="name" width={200}/>
         <Column
@@ -48,6 +44,17 @@ class MembersList extends Component {
         />
         <Column title="Сумма" dataIndex="pay" id="pay" width={80}/>
         <Column
+            title="Способ оплаты"
+            dataIndex="payment_type"
+            id="payment_type"
+            width={150}
+            render={(text, record) => (
+                <span>
+                    {this.paymenTypeMapper[record.payment_type] || 'Биткоины'}
+                </span>
+            )}
+        />
+        <Column
             title="Доплата"
             dataIndex="extra_pay"
             id="extra_pay"
@@ -57,7 +64,7 @@ class MembersList extends Component {
             )}
         />
         <Column
-            title="Способ оплаты"
+            title="Способ доплаты"
             dataIndex="payment_type"
             id="payment_type"
             width={150}
@@ -71,13 +78,12 @@ class MembersList extends Component {
         <Column
             title="Действия"
             id="action"
-            width={250}
+            width={280}
             render={(text, record) => (
                 <span>
-                    <Button className={'buttons'} type="primary" onClick={() => this.addExtraPay(record.key)}>
-                        Доплатить
-                    </Button>
-                    <Button type="danger" onClick={() => this.showDeleteConfirm(record.key)}>
+                    <ExtraPayConfirm record={record} addExtraPay={this.props.addExtraPay}/>
+                    <Button type="danger" onClick={() => this.showDeleteConfirm(record.id)}>
+                        <Icon type="user-delete" />
                         Удалить
                     </Button>
                 </span>
@@ -88,7 +94,6 @@ class MembersList extends Component {
             id="comment"
             dataIndex="comment"
             ellipsis={true}
-            // width={250}
 
         />
       </Table>
