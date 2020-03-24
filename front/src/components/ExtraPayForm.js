@@ -8,7 +8,7 @@ const ExtraPayForm = Form.create({ name: 'form_in_modal' })(
       const { getFieldDecorator } = form;
       return (
           <Form layout="vertical">
-            <Form.Item label="Способ Доплаты">
+            <Form.Item label="Выберите способ доплаты">
                 {getFieldDecorator('extra_payment_type', {
                     initialValue: 'cash'
                 })(

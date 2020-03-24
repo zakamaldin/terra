@@ -22,3 +22,24 @@
 }
 .table-checkboxes .ant-checkbox:hover::after, .ant-checkbox-wrapper:hover .ant-checkbox::after {
 }
+
+.login-btn{
+  text-align: center;
+}
+
+.login-page{
+  padding: 100px 0;
+}
+
+.login-form{
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  border-color: #d9d9d9;
+  padding: 15px 20px ;
+}
+
+.login-header{
+  text-align: center;
+  font-size: 56pt;
+}

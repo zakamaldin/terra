@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Modal, Button, Icon } from 'antd';
-import NewMemberForm from './NewMemberForm'
+import MemberForm from './MemberForm'
 
-class NewMember extends Component {
+class MemberCard extends Component {
   state = {
     visible: false
   };
@@ -12,6 +12,8 @@ class NewMember extends Component {
   };
 
   closeModal = () => {
+    const { form } = this.formRef.props;
+    form.resetFields();
     this.setState({ visible: false });
   };
 
@@ -23,14 +25,15 @@ class NewMember extends Component {
       }
 
       console.log('Received values of form: ', values);
-      form.resetFields();
       this.props.addMember(values);
-      this.setState({ visible: false });
+      this.closeModal()
     });
   };
+
   saveFormRef = formRef => {
     this.formRef = formRef;
   };
+
   render() {
     return (
       <div>
@@ -45,12 +48,10 @@ class NewMember extends Component {
           onOk={this.handleCreate}
           onCancel={this.closeModal}
         >
-          <NewMemberForm
-              wrappedComponentRef={this.saveFormRef}
-          />
+          <MemberForm wrappedComponentRef={this.saveFormRef}/>
         </Modal>
       </div>
     );
   }
 }
-export default NewMember;
+export default MemberCard;

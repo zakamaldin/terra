@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Form, Icon, Popconfirm, Radio} from "antd";
+import {Button, Icon, Popconfirm } from "antd";
 import ExtraPayForm from '../components/ExtraPayForm'
 
 class ExtraPayConfirm extends Component {
@@ -9,11 +9,8 @@ class ExtraPayConfirm extends Component {
           if (err) {
             return;
           }
-
-          console.log('Received values of form: ', values);
-          console.log(this.props.record.id);
           form.resetFields();
-          this.props.addExtraPay(this.props.record.id);
+          this.props.addExtraPay(this.props.record.id, values);
         });
       };
     saveFormRef = formRef => {
@@ -21,18 +18,21 @@ class ExtraPayConfirm extends Component {
     };
     render() {
         return(
-            <Popconfirm
-                title={ <ExtraPayForm wrappedComponentRef={this.saveFormRef}/>}
-                onConfirm={this.handleAddExtraPay}
-                okText="Да"
-                cancelText="Нет"
-                disabled={this.props.record.extra_pay}
-            >
-                <Button className={'buttons'} disabled={this.props.record.extra_pay} type="primary">
-                    <Icon type="percentage"/>
-                    Доплатить
-                </Button>
-            </Popconfirm>
+            <span onClick={(e) => e.stopPropagation()}>
+                <Popconfirm
+                    title={ <ExtraPayForm wrappedComponentRef={this.saveFormRef}/>}
+                    onConfirm={this.handleAddExtraPay}
+                    okText="Доплатить"
+                    cancelText="Отмена"
+                    disabled={this.props.record.extra_pay}
+                    icon={<Icon type="exclamation-circle" />}
+                >
+                    <Button className={'buttons'} disabled={this.props.record.extra_pay} type="primary">
+                        <Icon type="percentage"/>
+                        Доплатить
+                    </Button>
+                </Popconfirm>
+            </span>
         )
     }
 }

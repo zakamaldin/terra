@@ -32,11 +32,7 @@ class NewEvent extends Component {
         content: `В текущей игротеке ${this.members(this.props.count)}`,
         okText:'Да',
         cancelText:'Нет',
-        onOk() {
-          return new Promise((resolve, reject) => {
-            setTimeout(resolve, 1000);
-          }).catch(() => {this.error()});
-        },
+        onOk: () => this.props.newEvent(),
     });
   };
 
